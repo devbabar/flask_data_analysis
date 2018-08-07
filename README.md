@@ -4,13 +4,13 @@ This application used data sets stored at mysql. It will pull the requested data
 ## Step 1:
 Create a folder.
 
-$ mkdir realestate_graph
+$ mkdir realestate_display_graph
 
 Create a virtual enviroment. 
 
 $pip install virtualenv
 
-$ cd realestate_graph
+$ cd realestate_display_graph
 
 $ virtualenv env
 
