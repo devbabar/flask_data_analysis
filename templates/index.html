@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Display Graph</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="{{url_for('static',filename='css/display_graph.css')}}" rel="stylesheet" >
+
+</head>
+<body>
+	<header>
+		<div class="jumbotron text-center">
+			<div class='container'>
+				<img src="{{url_for('static',filename='images/homes/5.jpg')}}" class="img-fluid" alt="Responsive image" height="350px" width="100%">
+				<h1 id='abc'>Hello house keeper, welcome to work {{add}}</h1>
+			</div>
+		</div>
+	</header>
+  			
+	<div class='container'>
+		<div class='row'>
+			<div class='col-sm-4'>
+				<h3>Column 1 </h3>
+				<p>A house is a building that functions as a home, ranging from simple dwellings such as rudimentary huts of nomadic tribes and the improvised shacks in shantytowns to complex, fixed structures of wood, brick, concrete or other materials containing plumbing, ventilation and electrical systems.[1][2] Houses use a range of different roofing systems to keep precipitation such as rain from getting into the dwelling space. Houses may have doors or locks to secure the dwelling space and protect its inhabitants and contents from burglars or other trespassers. Most conventional modern houses in Western cultures will contain one or more bedrooms and bathrooms, a kitchen or cooking area, and a living room. A house may have a separate dining room, or the eating area may be integrated into another room. Some large houses in North America have a recreation room</p>
+			</div>
+			<div class='col-sm-4'>
+				<h3>Column 2</h3>
+				<p>A house is a building that functions as a home, ranging from simple dwellings such as rudimentary huts of nomadic tribes and the improvised shacks in shantytowns to complex, fixed structures of wood, brick, concrete or other materials containing plumbing, ventilation and electrical systems.[1][2] Houses use a range of different roofing systems to keep precipitation such as rain from getting into the dwelling space. Houses may have doors or locks to secure the dwelling space and protect its inhabitants and contents from burglars or other trespassers. Most conventional modern houses in Western cultures will contain one or more bedrooms and bathrooms, a kitchen or cooking area, and a living room. A house may have a separate dining room, or the eating area may be integrated into another room. Some large houses in North America have a recreation room</p>
+			</div>
+			<div class='col-sm-4'>
+				<h3>Column 3</h3>
+				<p>A house is a building that functions as a home, ranging from simple dwellings such as rudimentary huts of nomadic tribes and the improvised shacks in shantytowns to complex, fixed structures of wood, brick, concrete or other materials containing plumbing, ventilation and electrical systems.[1][2] Houses use a range of different roofing systems to keep precipitation such as rain from getting into the dwelling space. Houses may have doors or locks to secure the dwelling space and protect its inhabitants and contents from burglars or other trespassers. Most conventional modern houses in Western cultures will contain one or more bedrooms and bathrooms, a kitchen or cooking area, and a living room. A house may have a separate dining room, or the eating area may be integrated into another room. Some large houses in North America have a recreation room</p>
+			</div>
+		</div><hr>
+	</div>
+	
+	<!-- ======== Menu ============Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+				<a href="/" class="btn btn-primary menu-btn" role="button">All Properties</a>
+			</div>		
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<a href="/" class="btn btn-primary menu-btn" role="button">Home</a>
+			</div>
+		</div><hr>
+	</div><!-- ======== Menu ============Ends -->
+	
+	<!-- ======== Search by location ===========Start -->
+	
+ 	<div class='container search-div'>
+ 		<h3>Search box</h3>
+ 		{% with messages = get_flashed_messages() %}
+	   		{% if messages %}
+	      		{% for message in messages %}
+ 					<h5>{{ message }}</h5>
+ 				{% endfor %}
+	   		{% endif %}
+		{% endwith %}
+ 		<form id='search-form' action="{{url_for('regular_search')}}" method="post">
+			<input class="form-control" type='text' id='searchInput' name='location' placeholder="Location"><br>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+				<input class="btn btn-primary menu-btn" id='location-search-btn' type='submit' name='location' value='submit'>
+			</div>			
+		</form>
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<button class="btn btn-danger menu-btn adv-search-btn">Advance Search</button>
+		</div>
+	</div><br><!-- ======== Search by location ===========Ends -->
+	
+	<!-- ======== Advance Search ===========Start -->
+	<div class='container adv-search text-center'>	
+		<form action="{{url_for('search')}}" method="post" id="adv-search-form">
+			<input class="form-control" type='text' name='location' id="location" placeholder="Location">
+			<input class="form-control" type='number' name='bedrooms' id="bedrooms" placeholder="Bedrooms"><br>
+			<input class="btn btn-primary btn-lg" type='submit' value='submit'>
+		</form><hr>
+	</div><!-- ======== Advance Search ===========Start -->
+
+	{% if myhomes %}
+		{% set var = myhomes %}
+	{% elif homes %}
+		{% set var = homes %}
+	{% else %}
+		<div class='container adv-list-table'>
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						{{data.to_html(classes="table table-striped")|safe}}
+					</tr>
+				</tbody>
+			</table>
+			<div id='search-img'>
+				<img  src="data:image/png;base64,{{final}}" alt="">
+			</div>
+		</div>
+	{% endif %}
+	
+	<div class='container list-table'>
+		<table class="table table-hover">
+	  		<thead>
+				<tr>
+					<th>Location</th>
+					<th>Bedrooms</th>
+					<th>Price</th>
+					<th>Size</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for h in var %}
+				<tr>
+					<td>{{ h.Location }}</td>
+					<td>{{ h.Bedrooms }}</td>
+					<td>{{ h.Price}}</td>
+					<td>{{ h.Size}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+			
+	<!-- </table> -->
+	<!-- Personal jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+	<!-- Optional theme "External Bootstrap CDN" -->
+	<!-- < -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified JavaScript "External Bootstrap CDN" -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- Personal Javascript file -->
+	<script src="{{url_for('static',filename='scripts/script.js')}}" type="text/javascript"></script>
+
+</body>
+</html>
+
+
+
+
+
+

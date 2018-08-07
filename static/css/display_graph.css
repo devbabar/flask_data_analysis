@@ -1,0 +1,26 @@
+
+
+#search-img{
+	margin-left: -100px;
+}
+
+.list-table{
+	color: blue;
+}
+
+/*--------Menu---------start*/
+.menu-btn{
+	width: 100%;
+}
+
+.menu{
+	text-align: center;
+}
+
+.ui-menu{
+	background-color: white;
+}
+
+.search-div h5{
+	color: red;
+}
